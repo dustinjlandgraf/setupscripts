@@ -10,6 +10,10 @@ cd "$REPO"
 curl -O https://munkibuilds.org/munkitools2-latest.pkg
 installer -pkg munkitools2-latest.pkg -target / ; echo "Munki Tools installed. You will need to reboot after this script finishes."
 
+USER=`ls -la /dev/console | awk '{print $3}'`
+su $USER -c '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+su $USER -c 'brew cask install autodmg'
+
 #make necessary directories
 mkdir munki_repo
 mkdir munki_repo/catalogs
@@ -20,8 +24,14 @@ mkdir munki_repo/pkgsinfo
 #set permissions on these directories
 chmod -R a+rX munki_repo
 
-#If setting this up on a computer running Server.app, feel free to configure the web site there, otherwise uncomment the following line
-#ln -s $REPO/munki_repo /Library/WebServer/Documents/ && apachectl start
+if [ -e /Applications/Server.app ]
+then
+        echo "Server.app is installed. Installing DeployStudio. Please configure Munki Repo in Websites section of Server.app"
+        su $USER -c 'brew cask install deploystudio'
+else
+        echo "Server.app is not installed. Creating link to Munki Repo and starting Apache."
+        ln -s $REPO/munki_repo /Library/WebServer/Documents/ && apachectl start
+fi
 
 echo "Repoository configured at"
 echo $REPO"/munki_repo"
