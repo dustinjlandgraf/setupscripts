@@ -4,7 +4,7 @@
 #Set the parent directory for your repository here. Do not include a trailing slash!
 REPO=/Users/Shared
 
-cd $REPO
+cd "$REPO"
 
 #Download the current version of software
 curl -O https://munkibuilds.org/munkitools2-latest.pkg
