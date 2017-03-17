@@ -15,11 +15,7 @@ su $USER -c '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Ho
 su $USER -c 'brew cask install autodmg'
 
 #make necessary directories
-mkdir munki_repo
-mkdir munki_repo/catalogs
-mkdir munki_repo/manifests
-mkdir munki_repo/pkgs
-mkdir munki_repo/pkgsinfo
+mkdir -p munki_repo/{catalogs,manifests,pkgs,pkgsinfo}
 
 #set permissions on these directories
 chmod -R a+rX munki_repo
