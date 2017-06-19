@@ -7,8 +7,8 @@ REPO=/Users/Shared
 cd "$REPO"
 
 #Download the current version of software
-curl -O https://munkibuilds.org/munkitools2-latest.pkg
-installer -pkg munkitools2-latest.pkg -target / ; echo "Munki Tools installed. You will need to reboot after this script finishes."
+curl -O https://munkibuilds.org/munkitools3-latest.pkg
+installer -pkg munkitools3-latest.pkg -target / ; echo "Munki Tools installed. You will need to reboot after this script finishes."
 
 USER=`ls -la /dev/console | awk '{print $3}'`
 su $USER -c '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
